@@ -1,30 +1,46 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="layout">
+    <SelectedUserItems class="selected-user-block" />
+    <SelectedChooseItems class="selected-chosen-block" />
+    <ItemsList type="user" class="user-items-block" />
+    <ItemsList type="chosen" class="chosen-items-block" />
   </div>
-  <HelloWorld msg="Vite + Vue" />
+
 </template>
 
+<script setup lang="ts">
+import ItemsList from './components/ItemsList.vue';
+import SelectedChooseItems from './components/SelectedChooseItems.vue';
+import SelectedUserItems from './components/SelectedUserItems.vue';
+import { useInitDataStore } from './composables/useInitDataStore';
+
+
+
+useInitDataStore();
+
+</script>
+
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: min-content 1fr;
+  grid-gap: 20px;
+  padding: 30px 20px;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.selected-user-block {
+ grid-column: 1 / 1;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.selected-chosen-block {
+  grid-column: 4 / 4;
+}
+.user-items-block {
+  grid-column: 1 / span 2;
+  grid-row: 2;
+
+}
+.chosen-items-block {
+  grid-column: 3 / span 2;
+  grid-row: 2;
 }
 </style>
